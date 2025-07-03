@@ -44,5 +44,10 @@ class MyUtil:
         theta = np.zeros(self.A.shape[0])
         return theta
     
-    def 
+    def compute_model(self, theta):
+        f_hat = self.A @ theta
+        return f_hat
+    
+    
+
     
