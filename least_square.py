@@ -45,9 +45,18 @@ class MyUtil:
         return theta
     
     def compute_model(self, theta):
-        f_hat = self.A @ theta
-        return f_hat
+        self.f_hat = self.A @ theta
+        
     
+    def compute_residual(self, y):
+        self.res = y - self.f_hat
+    
+    def compute_loss(self):
+        n = self.A.shpae[0]
+        loss = (1 / 2*n) * (self.res.T @ self.res)
+        return loss
+    
+
     
 
     
