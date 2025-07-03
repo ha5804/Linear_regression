@@ -31,29 +31,38 @@ class MyPlot:
 class MyUtil:
     def __init__(self,A):
         self.A = None
-        self.theta = None
         pass
 
     def compute_regression_polynomial(self, x, y, p=1, alpha = 0):
+        x = x.reshape(-1, 1)
+        y = y.reshape(-1, 1)
+        A = self.matrix_A(x, p)
+        theta = self.find_theta(A, y)
+        f_hat = self.compute_model(theta)
+        res = self.compute_residual(y , f_hat)
+        loss = self.compute_loss(res)
+        return f_hat
         pass
 
     def matrix_A(self, x, p):
-        self.A = np.column_stack([x ** i for i in range(p)])
-    
-    def init_theta(self):
-        theta = np.zeros(self.A.shape[0])
+        A = np.column_stack([x ** i for i in range(p)])
+        return A
+        
+    def find_theta(self, A, y):
+        theta = np.linalg.inv((self.A.T @ self.A) @ self.A.T) @ y
         return theta
     
     def compute_model(self, theta):
-        self.f_hat = self.A @ theta
+        f_hat = self.A @ theta
+        return f_hat
         
+    def compute_residual(self, y, f_hat):
+        res = y - f_hat
+        return res
     
-    def compute_residual(self, y):
-        self.res = y - self.f_hat
-    
-    def compute_loss(self):
-        n = self.A.shpae[0]
-        loss = (1 / 2*n) * (self.res.T @ self.res)
+    def compute_loss(self, res):
+        n = len(res)
+        loss = (1 / 2*n) * (res.T @ res)
         return loss
     
 
