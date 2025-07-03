@@ -9,10 +9,27 @@ import csv
 
 class MyData:
     def __init__(self):
-        self.filename_point = "./data/point.csv"
+        self.filename_point = "./point.csv"
         #유지보수 위해 데이터를 class의 속성으로 저장해놓자.
 
     def get_point(self):
         point = np.genfromtxt(self.filename_point, delimiter = ',')
         return point
 
+class MyPlot:
+    def __init__(self):
+        self.fig_size = (8, 8)
+    
+    def plot_point(self, x, y1, y2 = None):
+        plt.figure(figsize = self.fig_size)
+        plt.xlabel('x')
+        plt.ylabel('y')
+        plt.scatter(x, y1, marker = '.', color = 'blue')
+        if y2 is not None:
+            plt.plot(y2, color = 'red')
+
+class MyUtil:
+    def __init__(self):
+        pass
+
+    def compute_regression_polynomial(self, x, y, p=1, alpha = 0):
