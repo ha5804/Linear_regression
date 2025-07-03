@@ -33,3 +33,7 @@ class MyUtil:
         pass
 
     def compute_regression_polynomial(self, x, y, p=1, alpha = 0):
+        pass
+
+    def matrix_A(self, x, p):
+        A = np.column_stack([x ** i for i in range(p)])
