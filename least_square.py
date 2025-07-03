@@ -29,11 +29,20 @@ class MyPlot:
             plt.plot(y2, color = 'red')
 
 class MyUtil:
-    def __init__(self):
+    def __init__(self,A):
+        self.A = None
+        self.theta = None
         pass
 
     def compute_regression_polynomial(self, x, y, p=1, alpha = 0):
         pass
 
     def matrix_A(self, x, p):
-        A = np.column_stack([x ** i for i in range(p)])
+        self.A = np.column_stack([x ** i for i in range(p)])
+    
+    def init_theta(self):
+        theta = np.zeros(self.A.shape[0])
+        return theta
+    
+    def 
+    
