@@ -29,8 +29,8 @@ class MyPlot:
             plt.plot(y2, color = 'red')
 
 class MyUtil:
-    def __init__(self,A):
-        self.A = None
+    def __init__(self):
+        
         pass
 
     def compute_regression_polynomial(self, x, y, p=1, alpha = 0):
@@ -38,7 +38,7 @@ class MyUtil:
         y = y.reshape(-1, 1)
         A = self.matrix_A(x, p)
         theta = self.find_theta(A, y)
-        f_hat = self.compute_model(theta)
+        f_hat = self.compute_model(A, theta)
         res = self.compute_residual(y , f_hat)
         loss = self.compute_loss(res)
         return f_hat
@@ -49,11 +49,13 @@ class MyUtil:
         return A
         
     def find_theta(self, A, y):
-        theta = np.linalg.inv((self.A.T @ self.A) @ self.A.T) @ y
+        theta = np.linalg.inv(A.T @ A) @ A.T @ y
+        theta = theta.reshape(-1, 1)
         return theta
     
-    def compute_model(self, theta):
-        f_hat = self.A @ theta
+    def compute_model(self, A, theta):
+        f_hat = A @ theta
+        f_hat = f_hat.reshape(-1, 1)
         return f_hat
         
     def compute_residual(self, y, f_hat):
@@ -62,7 +64,7 @@ class MyUtil:
     
     def compute_loss(self, res):
         n = len(res)
-        loss = (1 / 2*n) * (res.T @ res)
+        loss = (1 / (2*n)) * (res.T @ res)
         return loss
     
 
